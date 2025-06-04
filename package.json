@@ -1,8 +1,8 @@
 {
-  "name": "zarpado-fit",
+  "name": "ZarpadoFit",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://havikhavik.github.io/Zarpado-Fit/",
+  "homepage": "https://github.com/AdanUade/ZarpadoFit",
   "type": "module",
   "scripts": {
     "dev": "vite",
