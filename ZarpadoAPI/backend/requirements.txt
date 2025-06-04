@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pymongo
+neo4j
+python-multipart
+pillow
+email-validator
+google-genai
+python-dotenv

@@ -1,0 +1,54 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: zarpado-backend
+    volumes:
+      - ./storage:/app/storage
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    networks:
+      - zarpado-network
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password123
+  mongo:
+    image: mongo:5.0
+    container_name: zarpado-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - zarpado-network
+
+  neo4j:
+    image: neo4j:5.12
+    container_name: zarpado-neo4j
+    restart: always
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/admin123
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - zarpado-network
+
+volumes:
+  mongo-data:
+  neo4j-data:
+
+networks:
+  zarpado-network:
+    driver: bridge
